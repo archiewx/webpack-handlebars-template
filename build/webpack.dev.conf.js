@@ -12,9 +12,9 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
     baseWebpackConfig.entry[name])
 })
 
-let htmls = fs.readdirSync(path.resolve(__dirname, '..'))
+let htmls = fs.readdirSync(path.resolve(__dirname, '../htmls'))
   .filter(cv => cv.endsWith('.html'))
-const prefix = './'
+const prefix = './htmls/'
 htmls = htmls.map(function (html) {
   return new HtmlWebpackPlugin({
     filename: prefix + html,

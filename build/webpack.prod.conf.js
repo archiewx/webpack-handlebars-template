@@ -54,6 +54,13 @@ const webpackConfig = merge(baseWebpackConfig, {
       compress: {
         warnings: false
       },
+      output: {
+        beautify: true,
+        quote_keys: true
+      },
+      mangle: {
+        screw_ie8: false
+      },
       sourceMap: true
     }),
 

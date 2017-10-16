@@ -42,15 +42,17 @@ Object.keys(proxyTable).forEach(function (context) {
   app.use(proxyMiddleware(options.filter || context, options))
 })
 
-app.use(require('connect-history-api-fallback')())
+// 单页应用配置配合使用vue-router 或者 react-router
+// app.use(require('connect-history-api-fallback')())
 app.use(devMiddleware)
 app.use(hotMiddleware)
 
 const staticPath = path.posix.join(config.dev.assetsPublicPath,
   config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
+app.use(express.static(path.resolve(__dirname, '..', 'node_modules/admin-lte')))
 
-const uri = 'http://localhost:' + port
+const uri = 'http://localhost:' + port + '/htmls'
 
 let _resolve
 const readyPromise = new Promise(resolve => {

@@ -14,8 +14,8 @@ function assetsPath (_path) {
   return path.posix.join(assetsSubDirectory, _path)
 }
 
-const prefix = './'
-let jsFiles = fs.readdirSync(path.resolve(__dirname, '..'))
+const prefix = './entries/'
+let jsFiles = fs.readdirSync(path.resolve(__dirname, '../entries'))
   .filter(function (cv) {
     return cv.endsWith('.js')
   })
@@ -37,7 +37,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.hbs', '.json'],
-    alias: {}
+    alias: {
+      '~src': path.resolve(__dirname, '../src'),
+      '~asset': path.resolve(__dirname, '../static')
+    }
   },
   devtool: 'source-map',
   module: {
@@ -46,9 +49,10 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: [resolve('src')],
+        include: [resolve('src'), resolve('entries')],
         options: {
-          formatter: require('eslint-friendly-formatter')
+          formatter: require('eslint-friendly-formatter'),
+          eslintPath: require.resolve('eslint')
         }
       },
       {
