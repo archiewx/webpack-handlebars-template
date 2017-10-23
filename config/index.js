@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-let htmls = fs.readdirSync(path.resolve(__dirname, '..'))
+let htmls = fs.readdirSync(path.resolve(__dirname, '../htmls'))
   .filter(cv => cv.endsWith('.html'))
 const suffix = '.vm'
 const files = {}

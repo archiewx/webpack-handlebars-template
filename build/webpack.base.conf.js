@@ -58,7 +58,11 @@ module.exports = {
       {
         test: /\.hbs$/,
         loader: 'handlebars-loader',
-        query: {}
+        query: {
+          helperDirs: [
+            path.resolve(__dirname, '..', 'entries/helpers')
+          ]
+        }
       },
       {
         test: /\.js$/,

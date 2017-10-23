@@ -14,6 +14,7 @@ const webpackConfig = process.env.NODE_ENV === 'testing' ? require(
 const port = process.env.PORT || config.dev.port
 const autoOpenBrowser = !!config.dev.autoOpenBrowser
 const proxyTable = config.dev.proxyTable
+const Mock = require('mockjs')
 
 const app = express()
 const complier = webpack(webpackConfig)
@@ -51,6 +52,40 @@ const staticPath = path.posix.join(config.dev.assetsPublicPath,
   config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 app.use(express.static(path.resolve(__dirname, '..', 'node_modules/admin-lte')))
+
+const data = []
+for (let i = 0; i < 30; i++) {
+  data.push({
+    id: Mock.Random.increment(),
+    name: Mock.Random.name(),
+    domin: Mock.Random.domain(),
+    email: Mock.Random.email()
+  })
+}
+app.use('/test.json', function (req, res, next) {
+  const start = req.query.start
+  let temp = null
+  if (start === '0') {
+    temp = data.filter(cv => cv.id <= 10)
+  } else if (start === '10') {
+    temp = data.filter(cv => cv.id > 10 && cv.id <= 20)
+  } else if (start === '20') {
+    temp = data.filter(cv => cv.id > 20)
+  } else {
+    return res.json({
+      success: false,
+      error: '传递参数错误'
+    })
+  }
+  return res.json({
+    success: true,
+    draw: Number.parseInt(req.query.draw),
+    data: temp,
+    count: data.length,
+    recordsTotal: 30,
+    recordsFiltered: 30
+  })
+})
 
 const uri = 'http://localhost:' + port + '/htmls'
 

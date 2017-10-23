@@ -31,5 +31,38 @@ $('#data_table').DataTable({
   'ordering': false,
   'info': true,
   'autoWidth': false,
-  'language': chinese
+  'language': chinese,
+  data: [],
+  ajax: {
+    url: '/test.json'
+  },
+  serverSide: true,
+  columns: [
+    {data: 'id'},
+    {data: 'name'},
+    {data: 'domin'},
+    {data: 'email'},
+    {data: null}
+  ],
+  columnDefs: [
+    {
+      targets: 4,
+      render: function (data, type, row, meta) {
+        return `
+        <a href="javascript:;" class="opt-detail" data-id="${data.id}">详情</a> 
+        <a href="javascript:;" class="opt-delete" data-id="${data.id}">删除</a> 
+        <a href="javascript:;" class="opt-update" data-id="${data.id}">更新</a> 
+        `
+      }
+    }
+  ]
+})
+
+$('#data_table').on('click', 'td a.opt-delete', function (ev) {
+  const target = ev.target
+  console.log('删除的id为', target.dataset.id)
+})
+$('#data_table').on('click', 'td a.opt-update', function (ev) {
+  const target = ev.target
+  console.log('更新的id为', target.dataset.id)
 })

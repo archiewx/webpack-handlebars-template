@@ -20,9 +20,9 @@ function assetsPath (_path) {
   return path.posix.join(assetsSubDirectory, _path)
 }
 
-let htmls = fs.readdirSync(path.resolve(__dirname, '..'))
+let htmls = fs.readdirSync(path.resolve(__dirname, '../htmls'))
   .filter(cv => cv.endsWith('.html'))
-const prefix = './'
+const prefix = './htmls/'
 htmls = htmls.map(function (html) {
   const name = html.split('.')[0]
   return new HtmlWebpackPlugin({
