@@ -1,0 +1,58 @@
+.cascade {
+  width: 320px;
+  margin: 0 auto;
+  margin-top: 100px;
+
+  * {
+    transition: all .3s;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    outline: none;
+    border: 1px solid #ccc;
+    &:focus {
+      border-color: #000;
+    }
+  }
+  ul, li {
+    list-style-type: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  .option-box {
+    display: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 2px;
+  }
+  a {
+    display: block;
+  }
+  li {
+    padding: 8px;
+    position: relative;
+    cursor: pointer;
+    &:hover {
+      background-color: #ccc;
+
+      .sub-option-box {
+        display: block;
+      }
+    }
+
+    .sub-option-box {
+      display: none;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      position: absolute;
+      top: 0;
+      right: -100%;
+      margin-right: -2px;
+    }
+  }
+}
