@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin')
 const fs = require('fs')
+const AutoVersionPlugin = require('webpack-plugin-auto-version')
 
 const env = process.env.NODE_ENV === 'testing' ? require('../config/test.env') : config.build.env
 
@@ -37,7 +38,8 @@ htmls = htmls.map(function(html) {
   })
 })
 
-// htmls.unshift(new AutoVersionPlugin())
+htmls.unshift(new AutoVersionPlugin({ ignoreSuffix: ['.vm'] }))
+// htmls.push(new AutoVersionPlugin({ ignoreSuffix: ['.vm'] }))
 
 const webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? '#source-map' : false,
